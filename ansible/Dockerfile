@@ -3,7 +3,12 @@ RUN apt update
 RUN apt install -y ansible
 RUN apt install -y vim
 RUN apt install -y sshpass
-RUN apt install -y dos2unix
+
+# Configure Ansible
+RUN sed -i '/^\[defaults\]/a display_args_to_stdout = True' /etc/ansible/ansible.cfg
+RUN sed -i '/^\[defaults\]/a callback_whitelist = profile_tasks' /etc/ansible/ansible.cfg
+RUN sed -i '/^\[defaults\]/a host_key_checking = False' /etc/ansible/ansible.cfg
+RUN echo "alias ansible-playbook='ANSIBLE_LOG_PATH=\$(date +%Y%m%d%H%M%S).log ansible-playbook'" >> /root/.bashrc
 
 # Fix timezone issue
 # https://blog.programster.org/docker-ubuntu-20-04-automate-setting-timezone
@@ -12,8 +17,4 @@ ENV TZ=Europe/Amsterdam
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
-COPY config /etc/ansible
-WORKDIR /etc/ansible
-RUN dos2unix configure-ansible.sh
-RUN ./configure-ansible.sh
 WORKDIR /tmp/ansible
