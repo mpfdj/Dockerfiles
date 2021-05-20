@@ -2,6 +2,7 @@ https://iceburn.medium.com/run-ansible-with-docker-9eb27d75285b
 https://github.com/geerlingguy/docker-ubuntu1604-ansible
 https://icicimov.github.io/blog/docker/Building-custom-Docker-images-and-configuring-with-Ansible/	
 https://forums.docker.com/t/mount-doesnt-work-with-windows-path/43001
+https://forums.docker.com/t/docker-for-windows-wont-launch/15725/12
 
 
 # Create the image
