@@ -15,3 +15,51 @@ docker image build -f ansible-2.10.dockerfile -t ansible-2.10 .
 docker container run -v C:/miel/workspace/infra/Ansible:/tmp/ansible -it ansible bash
 docker container run -v C:/miel/workspace/infra/Ansible:/tmp/ansible -it ansible-2.9 bash
 docker container run -v C:/miel/workspace/infra/Ansible:/tmp/ansible -it ansible-2.10 bash
+
+
+# Remove all docker images
+docker rmi -f $(docker images -a -q)
+
+# ----------------------------------------------
+# Some useful commands on Ubuntu repositories
+# ----------------------------------------------
+
+# List remote repositories
+apt-get install devscripts
+rmadison yamllint
+
+# List available versions
+# https://linoxide.com/install-specific-version-package-apt-get/
+apt-cache madison yamllint
+apt-cache policy yamllint
+
+# List distro information
+lsb_release -a
+
+# Add a repository
+add-apt-repository universe
+apt-get update
+
+# Add a repository on ubuntu
+# https://linuxize.com/post/how-to-add-apt-repository-in-ubuntu/
+touch /etc/apt/sources.list.d/focal.list
+deb http://archive.ubuntu.com/ubuntu/ focal universe
+
+touch /etc/apt/sources.list.d/impish.list
+deb http://archive.ubuntu.com/ubuntu/ impish universe
+
+apt-get update
+apt-cache madison yamllint
+
+# Install a version
+# https://askubuntu.com/questions/138284/how-to-downgrade-a-package-via-apt-get
+apt install yamllint=1.20.0-1
+apt install yamllint=1.26.0-2
+
+
+
+
+
+pip install ansible==2.10.0
+pip install ansible-lint==5.0.0
+pip install yamllint==1.26.0
