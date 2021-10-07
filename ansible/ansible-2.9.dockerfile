@@ -12,7 +12,7 @@ RUN apt install -y git
 # https://github.com/ansible/ansible/issues/75141
 RUN apt install -y python3-pip
 RUN pip install ansible==2.9.0
-RUN pip install ansible-lint==5.0.0
+RUN pip install ansible-lint==5.2.0
 RUN pip install yamllint==1.26.0
 
 
