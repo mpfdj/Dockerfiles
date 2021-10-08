@@ -21,7 +21,7 @@ RUN pip install yamllint==1.26.0
 #RUN sed -i '/^\[defaults\]/a display_args_to_stdout = True' /etc/ansible/ansible.cfg
 #RUN sed -i '/^\[defaults\]/a callback_whitelist = profile_tasks' /etc/ansible/ansible.cfg
 #RUN sed -i '/^\[defaults\]/a host_key_checking = False' /etc/ansible/ansible.cfg
-#RUN echo "alias ansible-playbook='ANSIBLE_LOG_PATH=\$(date +%Y%m%d%H%M%S).log ansible-playbook'" >> /root/.bashrc
+RUN echo "alias ansible-playbook='ANSIBLE_LOG_PATH=\$(date +%Y%m%d%H%M%S).log ansible-playbook'" >> /root/.bashrc
 COPY ansible.cfg /etc/ansible/ansible.cfg
 
 
