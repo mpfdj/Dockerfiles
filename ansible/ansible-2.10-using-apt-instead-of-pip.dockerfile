@@ -1,11 +1,19 @@
+# https://hub.docker.com/_/ubuntu
 FROM ubuntu
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update
+RUN apt install -y software-properties-common
+# https://stackoverflow.com/questions/50538586/install-specific-version-of-ansible-2-3-1-0-on-ubuntu-18-04-lts
+RUN apt-add-repository --yes --update ppa:ansible/ansible-2.10
 RUN apt install -y ansible
 RUN apt install -y ansible-lint
+RUN apt install -y yamllint
 RUN apt install -y vim
 RUN apt install -y sshpass
 RUN apt install -y git
+RUN apt install -y python3-pip
 
 # Configure Ansible
 RUN sed -i '/^\[defaults\]/a display_args_to_stdout = True' /etc/ansible/ansible.cfg
@@ -14,12 +22,14 @@ RUN sed -i '/^\[defaults\]/a host_key_checking = False' /etc/ansible/ansible.cfg
 RUN echo "alias ansible-playbook='ANSIBLE_LOG_PATH=\$(date +%Y%m%d%H%M%S).log ansible-playbook'" >> /root/.bashrc
 
 # Configure proxy
-ENV HTTP_PROXY=xxx
-ENV HTTPS_PROXY=xxx
-ENV NO_PROXY=localhost,127.0.0.1,gitlab.ing.net,ansible.ing.net
+ENV HTTP_PROXY=xxx:8080
+ENV HTTPS_PROXY=xxx:8080
+ENV NO_PROXY=localhost,127.0.0.1,gitlab.ing.net,ansible.ing.net,pypi.org,pythonhosted.org
+
 
 # Configure git
 ENV GIT_SSL_NO_VERIFY=true
+
 
 # Fix timezone issue
 # https://blog.programster.org/docker-ubuntu-20-04-automate-setting-timezone

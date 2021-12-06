@@ -26,8 +26,8 @@ COPY ansible.cfg /etc/ansible/ansible.cfg
 
 
 # Configure proxy
-ENV HTTP_PROXY=xxx
-ENV HTTPS_PROXY=xxx
+ENV HTTP_PROXY=xxx:8080
+ENV HTTPS_PROXY=xxx:8080
 ENV NO_PROXY=localhost,127.0.0.1,gitlab.ing.net,ansible.ing.net,pypi.org,pythonhosted.org
 
 

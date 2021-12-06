@@ -4,16 +4,25 @@ FROM ubuntu
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update
-RUN apt install -y vim
-RUN apt install -y sshpass
-RUN apt install -y git
+RUN apt-get install -y vim
+RUN apt-get install -y sshpass
+RUN apt-get install -y git
+RUN apt-get install -y iputils-ping curl wget
+
 
 # https://pypi.org/
 # https://github.com/ansible/ansible/issues/75141
-RUN apt install -y python3-pip
+RUN apt-get install -y python3-pip
 RUN pip install ansible==2.9.0
 RUN pip install ansible-lint==5.2.0
 RUN pip install yamllint==1.26.0
+
+
+# Install molecule without docker driver
+#RUN pip3 install docker-py
+#RUN pip3 install --user "molecule[docker,lint]"
+RUN pip3 install --user "molecule[lint]"
+ENV PATH=$PATH:/root/.local/bin/
 
 
 # Configure Ansible
@@ -26,8 +35,8 @@ COPY ansible.cfg /etc/ansible/ansible.cfg
 
 
 # Configure proxy
-ENV HTTP_PROXY=xxx
-ENV HTTPS_PROXY=xxx
+ENV HTTP_PROXY=xxx:8080
+ENV HTTPS_PROXY=xxx:8080
 ENV NO_PROXY=localhost,127.0.0.1,gitlab.ing.net,ansible.ing.net,pypi.org,pythonhosted.org
 
 
@@ -37,7 +46,7 @@ ENV GIT_SSL_NO_VERIFY=true
 
 # Fix timezone issue
 # https://blog.programster.org/docker-ubuntu-20-04-automate-setting-timezone
-RUN apt install -y tzdata
+RUN apt-get install -y tzdata
 ENV TZ=Europe/Amsterdam
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
