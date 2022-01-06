@@ -8,6 +8,7 @@ RUN apt-get install -y vim
 RUN apt-get install -y sshpass
 RUN apt-get install -y git
 RUN apt-get install -y iputils-ping curl wget
+RUN apt-get install -y dos2unix
 
 
 # https://pypi.org/
