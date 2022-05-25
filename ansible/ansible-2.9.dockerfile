@@ -7,6 +7,9 @@ RUN apt-get update
 RUN apt install -y vim
 RUN apt install -y sshpass
 RUN apt install -y git
+RUN apt install -y dos2unix
+RUN apt install -y net-tools
+RUN apt install -y iproute2
 
 # https://pypi.org/
 # https://github.com/ansible/ansible/issues/75141
@@ -14,6 +17,23 @@ RUN apt install -y python3-pip
 RUN pip install ansible==2.9.0
 RUN pip install ansible-lint==5.2.0
 RUN pip install yamllint==1.26.0
+
+#--------------------------------------
+# Install molecule without driver (using delegate driver)
+#--------------------------------------
+# https://test.pypi.org/project/molecule/#history
+# https://stackoverflow.com/questions/63650010/could-not-find-a-version-that-satisfies-the-requirement-pyyaml-5-3-but-pyyaml
+# https://github.com/ansible-community/molecule/issues/1641
+
+# In fact if you are using latest version of molecule, it will install repository revel requirements.yml itself without you having to add anything to molecule.yml file.
+# You are better of removing dependency block from molecule config.
+#
+# In fact molecule own logic is smarter than galaxy itself and installs dependencies only when they are missing (galaxy from 2.9 does not support that, not even ability to upgrade them).
+
+RUN pip install --extra-index-url https://test.pypi.org/simple/ molecule==3.4.0
+RUN apt install -y iputils-ping
+RUN apt install -y curl
+RUN apt install -y wget
 
 
 # Configure Ansible
@@ -23,6 +43,14 @@ RUN pip install yamllint==1.26.0
 #RUN sed -i '/^\[defaults\]/a host_key_checking = False' /etc/ansible/ansible.cfg
 RUN echo "alias ansible-playbook='ANSIBLE_LOG_PATH=\$(date +%Y%m%d%H%M%S).log ansible-playbook'" >> /root/.bashrc
 COPY ansible.cfg /etc/ansible/ansible.cfg
+
+
+# SSL error when using ansible-galaxy to download roles
+# Set MTU for eth0 in WSL
+# https://github.com/microsoft/WSL/issues/4698
+# Commented out below command due error "#23 0.374 SIOCSIFMTU: Operation not permitted"
+# Looks like this configuration is not required anymore...
+# RUN ifconfig eth0 mtu 1350
 
 
 # Configure proxy
