@@ -19,6 +19,11 @@ RUN pip install ansible==2.9.0
 RUN pip install ansible-lint==5.2.0
 RUN pip install yamllint==1.26.0
 
+# https://pypi.org/project/Jinja2/#history
+# https://github.com/sphinx-doc/sphinx/issues/10291
+# Else the playbook fails. It is using some old jinja2 functions...
+RUN pip install Jinja2==3.0.3
+
 #--------------------------------------
 # Install molecule without driver (using delegate driver)
 #--------------------------------------
