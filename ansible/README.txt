@@ -63,3 +63,7 @@ apt install yamllint=1.26.0-2
 pip install ansible==2.10.0
 pip install ansible-lint==5.0.0
 pip install yamllint==1.26.0
+
+
+# Howto install a pip module using tar
+# https://www.geeksforgeeks.org/how-to-install-jmespath-terminal-on-linux/
