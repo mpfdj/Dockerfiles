@@ -17,6 +17,8 @@ RUN apt-get install -y iputils-ping curl wget
 RUN apt-get install -y python3-pip
 RUN pip install ansible==2.9.0
 RUN pip install ansible-lint==5.2.0
+# https://github.com/ansible-community/molecule/issues/3498
+#RUN pip install ansible-lint==5.4.0
 RUN pip install yamllint==1.26.0
 
 # https://pypi.org/project/Jinja2/#history
