@@ -67,3 +67,14 @@ pip install yamllint==1.26.0
 
 # Howto install a pip module using tar
 # https://www.geeksforgeeks.org/how-to-install-jmespath-terminal-on-linux/
+
+
+
+# Adding a new trusted certificate authority
+https://blog.confirm.ch/adding-a-new-trusted-certificate-authority/
+https://ubuntu.com/server/docs/security-trust-store
+
+apt-get install -y ca-certificates
+mv rootg3_b64.cer rootg3_b64.crt
+cp rootg3_b64.crt /usr/local/share/ca-certificates
+update-ca-certificates

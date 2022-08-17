@@ -75,4 +75,13 @@ ENV TZ=Europe/Amsterdam
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
+
+# Import CA certificate (used in ccp_pwv_interface.yml and ldap_pwv_interface.yml)
+# Make sure the CA certificate has .crt extension else update-ca-certificates won't work!!!
+# https://blog.confirm.ch/adding-a-new-trusted-certificate-authority/
+# https://ubuntu.com/server/docs/security-trust-store
+COPY rootg3_b64.crt /usr/local/share/ca-certificates
+RUN update-ca-certificates
+
+
 WORKDIR /tmp/ansible
