@@ -12,9 +12,12 @@ docker image build --no-cache --file ansible-2.10-using-apt-instead-of-pip.docke
 
 
 # Run the container with an interactive BASH shell
-docker container run --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible:/tmp/ansible" --interactive --tty ansible-2.9 bash
-docker container run --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible:/tmp/ansible" --interactive --tty ansible-2.10 bash
-docker container run --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible:/tmp/ansible" --interactive --tty ansible-2.10-apt bash
+docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible:/tmp/ansible" --interactive --tty ansible-2.9 bash
+docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P03881:/tmp/ansible" --interactive --tty ansible-2.9 bash
+docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P17064-BW5_15:/tmp/ansible" --interactive --tty ansible-2.9 bash
+
+docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible:/tmp/ansible" --interactive --tty ansible-2.10 bash
+docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible:/tmp/ansible" --interactive --tty ansible-2.10-apt bash
 
 
 # Remove all docker images
