@@ -12,6 +12,11 @@ RUN apt-get install -y net-tools
 RUN apt-get install -y iproute2
 RUN apt-get install -y iputils-ping curl wget
 
+# https://discuss.python.org/t/getting-requirements-to-build-wheel-did-not-run-successfully-exit-code-1/30365
+# https://stackoverflow.com/questions/34645821/pip-constraints-files
+RUN echo "Cython<3" > cython_constraint.txt
+ENV PIP_CONSTRAINT=cython_constraint.txt
+
 # https://pypi.org/
 # https://github.com/ansible/ansible/issues/75141
 RUN apt-get install -y python3-pip
