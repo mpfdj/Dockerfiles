@@ -8,8 +8,14 @@
 
 FROM redhat/ubi8
 
+# Set variables
 ARG SUBSCRIPTION_MANAGER_USERNAME=""
 ARG SUBSCRIPTION_MANAGER_PASSWORD=""
+
+
+# Set environment variables
+ENV GIT_SSL_NO_VERIFY=true
+ENV TZ=Europe/Amsterdam
 
 
 RUN yum install -y vim
@@ -21,6 +27,9 @@ RUN yum install -y iputils
 RUN yum install -y wget
 RUN yum install -y procps-ng
 RUN yum install -y man
+RUN yum install -y zip
+#RUN yum install -y make
+#RUN yum install -y zlib-devel
 
 RUN yum install -y python3.11-pip
 RUN pip3 install ansible==8.0.0
@@ -30,27 +39,36 @@ RUN pip3 install molecule==6.0.3
 COPY ansible-8.0.cfg /etc/ansible/ansible.cfg
 
 
+# Create aliases
 RUN echo "alias ansible-playbook='ANSIBLE_LOG_PATH=\$(date +%Y%m%d%H%M%S).log ansible-playbook'" >> /root/.bashrc
 RUN echo "alias ll='ls -lha --color'" >> /root/.bashrc
 
 
+# Update ca certificates
 # https://www.redhat.com/sysadmin/configure-ca-trust-list
-COPY rootg3_b64.crt /etc/pki/ca-trust/source/whitelist
+COPY rootg3_b64.crt /etc/pki/ca-trust/source/anchors
 RUN update-ca-trust
 
 
-RUN subscription-manager register --username ${SUBSCRIPTION_MANAGER_USERNAME} --password ${SUBSCRIPTION_MANAGER_PASSWORD} --name ansible-8.0-redhat-ubi
-RUN subscription-manager refresh
-
-RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-RUN dnf upgrade -y
-
-COPY squashfs-tools-4.3-25.fc32.x86_64.rpm /tmp
-RUN yum localinstall -y /tmp/squashfs-tools-4.3-25.fc32.x86_64.rpm
-RUN yum install -y udev
-RUN yum install -y snapd
-RUN systemctl enable snapd.socket
-RUN ln -s /var/lib/snapd/snap /snap
+#RUN subscription-manager register --username ${SUBSCRIPTION_MANAGER_USERNAME} --password ${SUBSCRIPTION_MANAGER_PASSWORD} --name ansible-8.0-redhat-ubi
+#RUN subscription-manager refresh
+#
+#RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+#RUN dnf upgrade -y
+#
+#COPY squashfs-tools-4.3-25.fc32.x86_64.rpm /tmp
+#RUN yum localinstall -y /tmp/squashfs-tools-4.3-25.fc32.x86_64.rpm
+#RUN yum install -y snapd
+#RUN systemctl enable snapd.socket
+#RUN ln -s /var/lib/snapd/snap /snap
+#RUN yum install -y udev
+#
+#
+## Install hello-world snap offline
+#COPY hello-world_29.assert /tmp
+#COPY hello-world_29.snap /tmp
+#RUN snap ack /tmp/hello-world_29.assert
+#RUN snap install /tmp/hello-world_29.snap
 
 # First run Docker image with /usr/sbin/init. Then run snap command, install udev again when you encounter the following error "error: too early for operation, device not yet seeded or device model not acknowledged".
 #snap install hello-world

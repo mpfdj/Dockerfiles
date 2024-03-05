@@ -1,22 +1,33 @@
 # https://hub.docker.com/_/ubuntu
+
+# docker image build --no-cache --file ansible-8.0-ubuntu.dockerfile --tag ansible-8.0-ubuntu .
+# docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P03881_P17064-BW5_15:/tmp/ansible" -it ansible-8.0-ubuntu /bin/bash
+
 FROM ubuntu
+#FROM hackyo/debian:bookworm-slim
 
+
+# Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
+ENV GIT_SSL_NO_VERIFY=true
 
-RUN apt-get update
-RUN apt-get install -y vim
-RUN apt-get install -y sshpass
-RUN apt-get install -y git
-RUN apt-get install -y dos2unix
-RUN apt-get install -y net-tools
-RUN apt-get install -y iproute2
-RUN apt-get install -y iputils-ping
-RUN apt-get install -y curl
-RUN apt-get install -y wget
+
+RUN apt update
+RUN apt install -y vim
+RUN apt install -y sshpass
+RUN apt install -y git
+RUN apt install -y dos2unix
+RUN apt install -y net-tools
+RUN apt install -y iproute2
+RUN apt install -y iputils-ping
+RUN apt install -y curl
+RUN apt install -y wget
+RUN apt install -y zip
+RUN apt install -y man
 
 
 # https://pypi.org/
-RUN apt-get install -y python3-pip
+RUN apt install -y python3-pip
 RUN pip install ansible==8.0.0
 RUN pip install ansible-lint==24.2.0
 RUN pip install yamllint==1.35.1
@@ -31,16 +42,11 @@ COPY ansible-8.0.cfg /etc/ansible/ansible.cfg
 RUN echo "alias ansible-playbook='ANSIBLE_LOG_PATH=\$(date +%Y%m%d%H%M%S).log ansible-playbook'" >> /root/.bashrc
 
 
-# Configure git
-ENV GIT_SSL_NO_VERIFY=true
-
-
-# Fix timezone issue
+# Fix timezone
 # https://blog.programster.org/docker-ubuntu-20-04-automate-setting-timezone
-RUN apt-get install -y tzdata
-ENV TZ=Europe/Amsterdam
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN dpkg-reconfigure -f noninteractive tzdata
+RUN apt install -y tzdata
+RUN ln -fs /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
+RUN echo "Europe/Amsterdam" > /etc/timezone
 
 
 # Import CA certificate (used in ccp_pwv_interface.yml and ldap_pwv_interface.yml)
