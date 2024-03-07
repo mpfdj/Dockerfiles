@@ -41,7 +41,7 @@ RUN pip3 install ansible==8.0.0
 RUN pip3 install ansible-lint==24.2.0
 RUN pip3 install yamllint==1.35.1
 RUN pip3 install molecule==6.0.3
-COPY ansible-8.0.cfg /etc/ansible/ansible.cfg
+COPY files/ansible/ansible.cfg /etc/ansible/ansible.cfg
 
 
 # Create aliases
@@ -51,7 +51,7 @@ RUN echo "alias ll='ls -lha --color'" >> /root/.bashrc
 
 # Update ca certificates
 # https://www.redhat.com/sysadmin/configure-ca-trust-list
-COPY rootg3_b64.crt /etc/pki/ca-trust/source/anchors
+COPY files/cacerts/rootg3_b64.crt /etc/pki/ca-trust/source/anchors
 RUN update-ca-trust
 
 
@@ -61,7 +61,7 @@ RUN update-ca-trust
 #RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 #RUN dnf upgrade -y
 #
-#COPY squashfs-tools-4.3-25.fc32.x86_64.rpm /tmp
+#COPY files/rpms/squashfs-tools-4.3-25.fc32.x86_64.rpm /tmp
 #RUN yum localinstall -y /tmp/squashfs-tools-4.3-25.fc32.x86_64.rpm
 #RUN yum install -y snapd
 #RUN systemctl enable snapd.socket
@@ -70,8 +70,8 @@ RUN update-ca-trust
 #
 #
 ## Install hello-world snap offline
-#COPY hello-world_29.assert /tmp
-#COPY hello-world_29.snap /tmp
+#COPY files/snap/hello-world_29.assert /tmp
+#COPY files/snap/hello-world_29.snap /tmp
 #RUN snap ack /tmp/hello-world_29.assert
 #RUN snap install /tmp/hello-world_29.snap
 

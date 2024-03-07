@@ -35,7 +35,7 @@ RUN pip install molecule==6.0.3
 
 
 # Copy ansible.cfg
-COPY ansible-8.0.cfg /etc/ansible/ansible.cfg
+COPY files/ansible/ansible.cfg /etc/ansible/ansible.cfg
 
 
 # Configure Ansible logging
@@ -53,7 +53,7 @@ RUN echo "Europe/Amsterdam" > /etc/timezone
 # Make sure the CA certificate has .crt extension else update-ca-certificates won't work!!!
 # https://blog.confirm.ch/adding-a-new-trusted-certificate-authority/
 # https://ubuntu.com/server/docs/security-trust-store
-COPY rootg3_b64.crt /usr/local/share/ca-certificates
+COPY files/cacerts/rootg3_b64.crt /usr/local/share/ca-certificates
 RUN update-ca-certificates
 
 

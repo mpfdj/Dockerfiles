@@ -70,3 +70,5 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 /.idea/
+/ansible/files/cacerts/rootg3_b64.crt
+/ansible/files/cacerts/*
