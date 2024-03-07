@@ -159,6 +159,9 @@ export LD_LIBRARY_PATH=/usr/lib64
 
 
 
+# Clean build
+make clean
+
 
 /usr/bin/python3.11
 
