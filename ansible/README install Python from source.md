@@ -160,6 +160,7 @@ export LD_LIBRARY_PATH=/usr/lib64
 
 
 # Clean build
+https://stackoverflow.com/questions/1439950/whats-the-opposite-of-make-install-i-e-how-do-you-uninstall-a-library-in-li
 make clean
 
 
