@@ -1,12 +1,16 @@
 # https://pythonspeed.com/articles/centos-8-is-dead/
 # https://hub.docker.com/u/redhat
 
+# docker image build -f ansible-8.0-redhat-ubi.dockerfile -t ansible-8-redhat-ubi .
+# docker container run --rm --privileged -it ansible-8-redhat-ubi /bin/bash
+
 # docker image build --no-cache -f ansible-8.0-redhat-ubi.dockerfile -t ansible-8-redhat-ubi .
 # docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P03881_P17064-BW5_15:/tmp/ansible" -it ansible-8-redhat-ubi /bin/bash
 # docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P03881_P17064-BW5_15:/tmp/ansible" -dit ansible-8-redhat-ubi /usr/sbin/init
 # docker exec -it <CONTAINER ID> /bin/bash
 
-FROM redhat/ubi8
+FROM redhat/ubi8:8.9
+
 
 # Set variables
 ARG SUBSCRIPTION_MANAGER_USERNAME=""
@@ -31,6 +35,7 @@ RUN yum install -y zip
 #RUN yum install -y make
 #RUN yum install -y zlib-devel
 
+RUN yum install -y python3.11
 RUN yum install -y python3.11-pip
 RUN pip3 install ansible==8.0.0
 RUN pip3 install ansible-lint==24.2.0
