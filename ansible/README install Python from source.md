@@ -136,7 +136,8 @@ https://stackoverflow.com/questions/1439950/whats-the-opposite-of-make-install-i
 
 yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-
+yum repolist
+yum update
 
 yum install -y yum-utils
 yum-builddep python3
@@ -216,3 +217,62 @@ sudo rm -r /var/cache/yum
 Update the resources :
 
 sudo yum upgrade
+
+
+
+
+
+
+
+
+
+
+
+
+#-------------------------------------------------------
+# Install python from scratch working solution finally!!
+#-------------------------------------------------------
+
+https://docs.posit.co/resources/install-python-source
+https://realpython.com/installing-python/#how-to-build-python-from-source-code
+
+# Not required to set up the epel repo, below packages come from the default repos
+# yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+# yum update
+yum install -y wget yum-utils make gcc openssl-devel bzip2-devel libffi-devel zlib-devel
+
+wget https://www.python.org/ftp/python/3.11.0/Python-3.11.0.tgz
+
+
+export PYTHON_VERSION=3.11.0
+
+./configure \
+--prefix=/opt/python/${PYTHON_VERSION} \
+--enable-shared \
+--enable-optimizations \
+--enable-ipv6 \
+--with-ensurepip=install \
+LDFLAGS=-Wl,-rpath=/opt/python/${PYTHON_VERSION}/lib,--disable-new-dtags
+
+make
+make -j 8
+make -j $(nproc)
+
+make install
+make altinstall  # You’ll use the altinstall target here to avoid overwriting the system Python. Since you’re installing into /usr/bin
+
+make clean
+
+
+
+# ---------------------------------
+# Setting up a virtual environment
+# ---------------------------------
+https://www.freecodecamp.org/news/how-to-setup-virtual-environments-in-python/
+https://saturncloud.io/blog/how-to-use-different-python-versions-with-virtualenv/
+https://stackoverflow.com/questions/21099057/control-the-pip-version-in-virtualenv
+
+
+
+
+
