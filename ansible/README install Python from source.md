@@ -283,3 +283,11 @@ pip3 install ansible==9.3.0
 
 pip3 install helloworld-dylanballback
 https://pypi.org/project/helloworld-dylanballback/
+
+
+# Install termcolor
+pip3 install termcolor
+
+# Snippet
+from termcolor import colored
+print(colored("Hello World", "green"))
