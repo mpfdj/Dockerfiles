@@ -277,12 +277,16 @@ mkdir /opt/virtualenv
 cd /opt/virtualenv
 virtualenv -p /opt/python/3.12.2/bin/python3.12 ansible-9.3.0
 source /opt/virtualenv/ansible-9.3.0/bin/activate
+deactivate
+
+
 
 pip3 index versions ansible
 pip3 install ansible==9.3.0
 
-pip3 install helloworld-dylanballback
-https://pypi.org/project/helloworld-dylanballback/
+
+
+
 
 
 # Install termcolor
