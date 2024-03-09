@@ -289,5 +289,8 @@ https://pypi.org/project/helloworld-dylanballback/
 pip3 install termcolor
 
 # Snippet
-from termcolor import colored
+from termcolor import colored, cprint
+
 print(colored("Hello World", "green"))
+cprint("Hello World", "magenta")
+
