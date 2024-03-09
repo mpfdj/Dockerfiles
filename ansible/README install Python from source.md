@@ -272,7 +272,14 @@ https://www.freecodecamp.org/news/how-to-setup-virtual-environments-in-python/
 https://saturncloud.io/blog/how-to-use-different-python-versions-with-virtualenv/
 https://stackoverflow.com/questions/21099057/control-the-pip-version-in-virtualenv
 
+pip3 install virtualenv
+mkdir /opt/virtualenv
+cd /opt/virtualenv
+virtualenv -p /opt/python/3.12.2/bin/python3.12 ansible-9.3.0
+source /opt/virtualenv/ansible-9.3.0/bin/activate
 
+pip3 index versions ansible
+pip3 install ansible==9.3.0
 
-
-
+pip3 install helloworld-dylanballback
+https://pypi.org/project/helloworld-dylanballback/
