@@ -280,7 +280,8 @@ source /opt/virtualenv/ansible-9.3.0/bin/activate
 deactivate
 
 
-
+# List installed pip3 packages
+pip3 list
 pip3 index versions ansible
 pip3 install ansible==9.3.0
 
