@@ -7,20 +7,12 @@ https://forums.docker.com/t/docker-for-windows-wont-launch/15725/12
 
 # Create the image
 docker image build --no-cache --file ansible-2.9.dockerfile --tag ansible-2.9 .
-docker image build --no-cache --file ansible-2.10.dockerfile --tag ansible-2.10 .
-docker image build --no-cache --file ansible-2.10-using-apt-instead-of-pip.dockerfile --tag ansible-2.10-apt .
-docker image build --no-cache --file ansible-8.dockerfile --tag ansible-8.0 .
+docker image build --no-cache --file ansible-8.0-redhat-ubi --tag ansible-8.0 .
 
 
 # Run the container with an interactive BASH shell
-docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible:/tmp/ansible" --interactive --tty ansible-2.9 bash
-docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P03881:/tmp/ansible" --interactive --tty ansible-2.9 bash
-docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P17064-BW5_15:/tmp/ansible" --interactive --tty ansible-2.9 bash
-docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P03881_P17064-BW5_15:/tmp/ansible" --interactive --tty ansible-2.9 bash
-docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P03881_P17064-BW5_15:/tmp/ansible" --interactive --tty ansible-8.0 bash
-
-docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible:/tmp/ansible" --interactive --tty ansible-2.10 bash
-docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible:/tmp/ansible" --interactive --tty ansible-2.10-apt bash
+docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P03881_P17064-BW5_15:/tmp/ansible" --add-host=host.docker.internal:host-gateway -it ansible-2.9 /bin/bash
+docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P03881_P17064-BW5_15:/tmp/ansible" --add-host=host.docker.internal:host-gateway -it ansible-8.0 /bin/bash
 
 
 # Remove all docker images
