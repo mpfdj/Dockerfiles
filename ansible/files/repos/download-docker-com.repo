@@ -1,0 +1,5 @@
+[download-docker-com]
+name = download.docker.com
+baseurl = https://download.docker.com/linux/rhel/8/x86_64/stable
+enabled = 1
+gpgcheck = 0

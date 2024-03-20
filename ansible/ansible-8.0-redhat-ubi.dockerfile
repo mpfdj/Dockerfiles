@@ -5,8 +5,8 @@
 # docker container run --rm --privileged -it ansible-8.0-redhat-ubi /bin/bash
 
 # docker image build --no-cache -f ansible-8.0-redhat-ubi.dockerfile -t ansible-8.0-redhat-ubi .
-# docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P03881_P17064-BW5_15:/tmp/ansible" -it ansible-8.0-redhat-ubi /bin/bash
-# docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P03881_P17064-BW5_15:/tmp/ansible" -dit ansible-8.0-redhat-ubi /usr/sbin/init
+# docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P03881_P17064-BW5_15:/tmp/ansible" --add-host=host.docker.internal:host-gateway -it ansible-8.0-redhat-ubi /bin/bash
+# docker container run --rm --privileged --volume "C:\Users\TO11RC\OneDrive - ING\miel\workspace\Ansible_P03881_P17064-BW5_15:/tmp/ansible" --add-host=host.docker.internal:host-gateway -dit ansible-8.0-redhat-ubi /usr/sbin/init
 # docker exec -it <CONTAINER ID> /bin/bash
 
 FROM redhat/ubi8:8.9
@@ -53,6 +53,12 @@ RUN echo "alias ll='ls -lha --color'" >> /root/.bashrc
 # https://www.redhat.com/sysadmin/configure-ca-trust-list
 COPY files/cacerts/rootg3_b64.crt /etc/pki/ca-trust/source/anchors
 RUN update-ca-trust
+
+
+# Copy repos
+COPY files/repos/download-docker-com.repo /etc/yum.repos.d
+COPY files/repos/rockylinux.repo /etc/yum.repos.d
+
 
 
 #RUN subscription-manager register --username ${SUBSCRIPTION_MANAGER_USERNAME} --password ${SUBSCRIPTION_MANAGER_PASSWORD} --name ansible-8.0-redhat-ubi
