@@ -58,6 +58,7 @@ RUN chmod 777 /tmp/molecule
 
 # Create aliases
 RUN echo "alias ansible-playbook='ANSIBLE_LOG_PATH=\$(date +%Y%m%d%H%M%S).log ansible-playbook'" >> /root/.bashrc
+RUN echo "alias molecule='ANSIBLE_LOG_PATH=\$(date +%Y%m%d%H%M%S).log molecule'" >> /root/.bashrc
 RUN echo "alias ll='ls -lha --color'" >> /root/.bashrc
 
 
