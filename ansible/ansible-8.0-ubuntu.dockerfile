@@ -32,6 +32,7 @@ RUN pip install ansible==8.0.0
 RUN pip install ansible-lint==24.2.0
 RUN pip install yamllint==1.35.1
 RUN pip install molecule==6.0.3
+RUN pip install netaddr
 
 
 # Copy ansible.cfg

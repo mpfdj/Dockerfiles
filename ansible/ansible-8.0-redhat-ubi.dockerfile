@@ -50,6 +50,7 @@ RUN pip3 install ansible==8.0.0
 RUN pip3 install ansible-lint==24.2.0
 RUN pip3 install yamllint==1.35.1
 RUN pip3 install molecule==6.0.3
+RUN pip3 install netaddr
 RUN pip3 install xml
 RUN pip3 install docker
 RUN yum install -y docker-ce
