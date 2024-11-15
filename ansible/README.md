@@ -5,6 +5,11 @@ https://forums.docker.com/t/mount-doesnt-work-with-windows-path/43001
 https://forums.docker.com/t/docker-for-windows-wont-launch/15725/12
 
 
+# I want to connect from a container to a service on the host
+https://medium.com/@TimvanBaarsen/how-to-connect-to-the-docker-host-from-inside-a-docker-container-112b4c71bc66
+https://docs.docker.com/desktop/features/networking/#i-want-to-connect-from-a-container-to-a-service-on-the-host
+
+
 # Create the image
 docker image build --no-cache --file ansible-2.9.dockerfile --tag ansible-2.9 .
 docker image build --no-cache --file ansible-8.0-redhat-ubi --tag ansible-8.0 .
