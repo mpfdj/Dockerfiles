@@ -81,3 +81,8 @@ apt-get install -y ca-certificates
 mv rootg3_b64.cer rootg3_b64.crt
 cp rootg3_b64.crt /usr/local/share/ca-certificates
 update-ca-certificates
+
+
+# Docker empty build cache
+# https://depot.dev/blog/docker-clear-cache
+docker builder prune
